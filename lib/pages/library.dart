@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scribbly/bloc/app_bloc.dart';
 import 'package:scribbly/widgets/private_tab.dart';
+import 'package:scribbly/widgets/russ_tab_bar.dart';
 
 class Library extends StatelessWidget {
   const Library({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class Library extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppController appBloc = Get.put(AppController());
+    final PageController topTabControl = PageController();
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -16,13 +18,39 @@ class Library extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed: () {},
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text(
+          "Library",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
         children: [
-          const PrivateTab(),
-          Container(child: const Center(child: Text("shared"))),
-          Container(child: const Center(child: Text("public"))),
-          Container(child: const Center(child: Text("saved"))),
+          RussTabBar(
+            backgroundColor: Colors.white,
+            controller: topTabControl,
+            tabs: const <String>[
+              "private",
+              "shared",
+              "public",
+              "saved",
+            ],
+            animateTransitions: false,
+          ),
+          Expanded(
+            child: PageView(
+              controller: topTabControl,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                const PrivateTab(),
+                Container(child: const Center(child: Text("shared"))),
+                Container(child: const Center(child: Text("public"))),
+                Container(child: const Center(child: Text("saved"))),
+              ],
+            ),
+          ),
         ],
       ),
     );

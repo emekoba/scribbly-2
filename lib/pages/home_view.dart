@@ -91,31 +91,26 @@ class _HomeViewState extends State<HomeView> {
             );
           })
         ]),
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Theme.of(context).primaryColor,
-          ),
-          child: BottomNavigationBar(
-            elevation: 3,
-            currentIndex: _pageIndex,
-            onTap: (index) => _changePage(index),
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: _footerIcons.keys.indexedMap(
-              (key, idx) {
-                return BottomNavigationBarItem(
-                  label: key,
-                  icon: Icon(
-                    _footerIcons[key]!["icon"] as IconData,
-                    size: _footerIcons[key]!["size"] as double,
-                    color: _pageIndex == idx
-                        ? _footerIcons[key]!["theme"] as Color
-                        : Theme.of(context).colorScheme.secondary,
-                  ),
-                );
-              },
-            ).toList(),
-          ),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 3,
+          currentIndex: _pageIndex,
+          onTap: (index) => _changePage(index),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: _footerIcons.keys.indexedMap(
+            (key, idx) {
+              return BottomNavigationBarItem(
+                label: key,
+                icon: Icon(
+                  _footerIcons[key]!["icon"] as IconData,
+                  size: _footerIcons[key]!["size"] as double,
+                  color: _pageIndex == idx
+                      ? _footerIcons[key]!["theme"] as Color
+                      : Theme.of(context).colorScheme.secondary,
+                ),
+              );
+            },
+          ).toList(),
         ),
       ),
     );

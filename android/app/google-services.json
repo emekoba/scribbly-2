@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "353036197107",
+    "project_id": "scribbly-98811",
+    "storage_bucket": "scribbly-98811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353036197107:android:9ed3c6764103fc53b92b86",
+        "android_client_info": {
+          "package_name": "com.russellsoftworks.scribbly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353036197107-1hhn9utfkn8tu61pclosa42h9u862mqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc187HhHGbiepw2T1ZemuaY38mSmQaJyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353036197107-1hhn9utfkn8tu61pclosa42h9u862mqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

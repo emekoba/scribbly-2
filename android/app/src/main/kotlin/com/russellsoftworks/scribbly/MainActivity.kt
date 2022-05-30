@@ -1,4 +1,4 @@
-package com.example.scribbly
+package com.russellsoftworks.scribbly
 
 import io.flutter.embedding.android.FlutterActivity
 
