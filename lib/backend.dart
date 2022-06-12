@@ -1,5 +1,3 @@
-Uri scribblyBackend = Uri(path: "https://scribbly-backend.herokuapp.com/");
-
 List allIdeas = [
   {
     "name": "virtual reality based videos",

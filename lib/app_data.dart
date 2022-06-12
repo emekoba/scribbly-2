@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const development = true;
+
+const String scribblyBackend = development == true
+    ? "localhost:3200"
+    : "https://scribbly-backend.herokuapp.com/";
+
 List<int> colors = [
   0xffEEDD82,
   0xfff032e6,
