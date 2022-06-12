@@ -100,7 +100,8 @@ class Post extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Offstage(
-                offstage: ideaType == "private" || ideaType == "shared",
+                offstage: ideaType == IdeaTypes.private ||
+                    ideaType == IdeaTypes.public,
                 child: Row(
                   children: [
                     Icon(
@@ -110,39 +111,39 @@ class Post extends StatelessWidget {
                     ),
                     Expanded(child: Container()),
                     Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.arrow_upward_rounded,
-                              color: appBloc.activePageTheme,
-                              size: 20,
-                            ),
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.arrow_upward_rounded,
+                            color: appBloc.activePageTheme,
+                            size: 20,
                           ),
-                          const SizedBox(width: 10),
-                          Text(
-                            "2k",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontSize: 12,
-                                ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          "2k",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 12,
+                              ),
+                        ),
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.arrow_downward_rounded,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20,
                           ),
-                          const SizedBox(width: 10),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.arrow_downward_rounded,
-                              color: Theme.of(context).colorScheme.secondary,
-                              size: 20,
-                            ),
-                          )
-                        ])
+                        )
+                      ],
+                    )
                   ],
                 ),
               )

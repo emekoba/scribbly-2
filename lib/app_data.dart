@@ -47,6 +47,7 @@ class AppTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
     ),
+    inputDecorationTheme: const InputDecorationTheme(),
     //
     textTheme: const TextTheme(
         button: TextStyle(color: Colors.white),
