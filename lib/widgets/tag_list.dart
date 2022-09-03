@@ -43,7 +43,7 @@ class TagList extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.only(top: 15, bottom: 10),
+      padding: const EdgeInsets.only(top: 0, bottom: 0),
       child: Wrap(
         children: tags
             .map(

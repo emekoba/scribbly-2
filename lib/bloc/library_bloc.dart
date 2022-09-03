@@ -2,33 +2,72 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:scribbly/app_data.dart';
-import 'package:scribbly/backend.dart';
 import 'package:http/http.dart' as http;
 
+enum ResponseStatus { success, unauthorized, failed }
+
 class LibraryController extends GetxController {
+  http.Client client = http.Client();
   final Map<String, Uri> endpoints = {
-    "create": Uri(path: "$scribblyBackend/ideas/create"),
+    "fetchMy": Uri.parse("$scribblyBackend/idea/get-users-ideas"),
+    "fetchPub": Uri.parse("$scribblyBackend/idea/create-idea"),
+    "create": Uri.parse("$scribblyBackend/idea/create-idea"),
   };
 
-  Future<List<dynamic>> getPrivateIdeas() async {
-    //* get data from backend.
-    List privateIdeas =
-        allIdeas.where((idea) => idea["status"] == "private").toList();
+  getHeaders() {
+    String accessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYyMTk5MDExLCJleHAiOjE2NjIyMjQyMTF9.-1osCPoqGZAXnmxWms1DQ1dUvXjX869iGVIWSrQDs6k";
 
-    if (privateIdeas.isEmpty) {
-      //* fetch from backend fails, fetch from local storage
+    return {
+      'Authorization': 'Bearer $accessToken',
+    };
+  }
 
-      return privateIdeas;
-    } else {
+  dynamic sortResponse(dynamic response) {
+    ResponseStatus status = ResponseStatus.failed;
+    Map body = {};
+
+    switch (response.statusCode) {
+      case 401:
+        status = ResponseStatus.unauthorized;
+        break;
+
+      case 200:
+        status = ResponseStatus.success;
+        body = json.decode(response.body);
+        break;
+    }
+
+    return {
+      "status": status,
+      'body': body,
+    };
+  }
+
+  Future<List<dynamic>> getMyIdeas() async {
+    List myIdeas = [];
+
+    var response = sortResponse(await client.get(
+      endpoints["fetchMy"]!,
+      headers: getHeaders(),
+    ));
+
+    if (response["status"] == ResponseStatus.success) {
+      myIdeas = response["body"]["usersIdeas"];
+
       //* update local storage..
 
       //* return ideas
-      return privateIdeas;
+      return myIdeas;
+    } else {
+      //* fetch from backend fails, fetch from local storage
+
+      return myIdeas;
     }
   }
 
-  getUserIdeas() {
-    // zv5gYvAig9Z9ovAY28m9
+  Future<Map<dynamic, dynamic>> getLayout() async {
+    return {};
   }
 
   Future<dynamic> createIdea({
@@ -39,7 +78,8 @@ class LibraryController extends GetxController {
       var response = await http.post(
         endpoints["create"]!,
         body: json.encode({
-          'name': 'getLeaderboardData',
+          'name': name,
+          'description': description,
         }),
       );
 

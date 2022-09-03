@@ -17,7 +17,7 @@ dependencies:
   get: ^4.6.5
   http: ^0.13.4
   loading_animation_widget: ^1.2.0+2
-  modal_bottom_sheet: ^2.0.1
+  modal_bottom_sheet: ^2.1.0
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

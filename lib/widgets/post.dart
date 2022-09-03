@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scribbly/bloc/app_bloc.dart';
 import 'package:scribbly/enums.dart';
+import 'package:scribbly/pages/idea_page.dart';
 import 'package:scribbly/widgets/tag_list.dart';
 
 class Post extends StatelessWidget {
@@ -38,17 +39,7 @@ class Post extends StatelessWidget {
       //     child: IdeaPage(
       //         pageTheme: pageTheme, name: name, structure: structure)));
 
-      // Navigator.pushNamed(context, '/idea-page', arguments: {
-      //   'name': name,
-      //   'tags': tags,
-      //   'username': username,
-      //   'date': date,
-      //   'description': description,
-      //   'cover': cover,
-      //   'structure': structure,
-      //   'pageTheme': pageTheme,
-      //   'userdp': userdp
-      // });
+      Get.to(() => IdeaPage(id: id));
     }
 
     void _openIdeaOptions() {
@@ -64,8 +55,6 @@ class Post extends StatelessWidget {
       onTap: _openIdea,
       onLongPress: _openIdeaOptions,
       child: Container(
-        // height: 100,
-        // width: 200,
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -73,35 +62,38 @@ class Post extends StatelessWidget {
         ),
         padding: const EdgeInsets.fromLTRB(15, 20, 15, 10),
         constraints: const BoxConstraints(minHeight: 100),
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
                 name,
                 style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              Offstage(
-                offstage: tags == null,
-                child: TagList(
-                  tags: tags ?? [],
-                ),
-              ),
-              Text(
+            ),
+            Offstage(
+              offstage: tags == null,
+              child: TagList(tags: tags ?? []),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text(
                 description ?? "",
                 style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontSize: 13,
                       height: 1.5,
                     ),
               ),
-              const SizedBox(height: 30),
-              Offstage(
-                offstage: ideaType == IdeaTypes.private ||
-                    ideaType == IdeaTypes.public,
+            ),
+            Offstage(
+              offstage:
+                  ideaType == IdeaTypes.private || ideaType == IdeaTypes.public,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5),
                 child: Row(
                   children: [
                     Icon(
@@ -146,9 +138,9 @@ class Post extends StatelessWidget {
                     )
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -156,6 +148,8 @@ class Post extends StatelessWidget {
 }
 
 class PostOptions extends StatelessWidget {
+  const PostOptions({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
